@@ -1,5 +1,5 @@
 [Unit]
-Description=Camera Segment Uploader to Cloudflare R2
+Description=Camera Segment Uploader to S3-compatible storage
 After=network.target
 Wants=network.target
 

@@ -1,6 +1,8 @@
-# Camera Backup System
+# RTSP Camera Backup System
 
-A Python package for backing up RTSP camera streams to S3-compatible storage. Records video streams in 1-hour segments using FFmpeg and automatically uploads completed segments to cloud storage.
+A Python package for backing up RTSP/RTSPS camera streams to S3-compatible storage. Records video streams in 1-hour segments using FFmpeg and automatically uploads completed segments to cloud storage.
+
+Supports any IP camera that provides RTSP streams, including Unifi, Hikvision, Dahua, Axis, and other brands.
 
 ## Features
 
@@ -115,7 +117,7 @@ s3:
   access_key_id: "YOUR_ACCESS_KEY_ID" 
   secret_access_key: "YOUR_SECRET_ACCESS_KEY"
   bucket: "camera-backups"
-  endpoint: "https://YOUR_ENDPOINT_URL"  # e.g., https://account.r2.cloudflarestorage.com
+  endpoint: "https://YOUR_ENDPOINT_URL"  # e.g., https://account.r2.cloudflarestorage.com or https://s3.amazonaws.com
 
 cameras:
   - name: "front-door"
@@ -200,7 +202,7 @@ ls -la /var/lib/camera-backup/segments/
 The system consists of:
 
 1. **Recording Services**: One systemd service per camera that runs FFmpeg with segment output
-2. **Upload Service**: Single service that monitors for completed segments and uploads to R2
+2. **Upload Service**: Single service that monitors for completed segments and uploads to S3-compatible storage
 3. **Configuration Management**: YAML-based configuration with service generation scripts
 
 ### File Structure
@@ -222,9 +224,9 @@ The system consists of:
 └── camera-uploader.service
 ```
 
-### R2 Storage Structure
+### Storage Structure
 
-Files are uploaded to R2 with the following structure:
+Files are uploaded to S3-compatible storage with the following structure:
 ```
 bucket/
 ├── front-door/
@@ -239,9 +241,10 @@ bucket/
 ## Requirements
 
 - Python 3.8+
-- FFmpeg with RTSP support
+- FFmpeg with RTSP/RTSPS support
 - Systemd (Linux)
-- Network access to IP cameras and S3-compatible storage
+- Network access to RTSP cameras and S3-compatible storage
+- IP cameras that support RTSP protocol
 
 ## Dependencies
 
