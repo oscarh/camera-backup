@@ -1,3 +1,4 @@
 !CLAUDE.md
 .coverage
 dist
+src/camera_backup/_version.py
