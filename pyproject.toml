@@ -1,0 +1,53 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/camera_backup"]
+
+[tool.hatch.envs.default]
+dev-mode = true
+dependencies = [
+    "pyyaml",
+    "boto3",
+]
+
+[project]
+name = "camera-backup"
+version = "0.1.4"
+description = "Backup RTSP camera streams to S3-compatible storage"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.8"
+authors = [
+    { name = "Your Name", email = "your.email@example.com" },
+]
+dependencies = [
+    "pyyaml",
+    "boto3",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+    "pytest-mock",
+    "pytest-cov",
+]
+
+[project.scripts]
+camera-backup-generate = "camera_backup.generate_services:main"
+camera-backup-uploader = "camera_backup.uploader:main"
+camera-backup-install = "camera_backup.install:install_system_files"
+
+[project.urls]
+Homepage = "https://github.com/yourusername/camera-backup"
+
+[tool.hatch.envs.hatch-test]
+dependencies = [
+    "pytest",
+    "pytest-mock", 
+    "pytest-cov",
+]
+
+[[tool.hatch.envs.hatch-test.matrix]]
+python = ["3.8", "3.9", "3.10", "3.11", "3.12"]

@@ -1,0 +1,24 @@
+# Camera Backup Configuration
+storage:
+  local_path: "/var/lib/camera-backup/segments"
+
+s3:
+  access_key_id: "YOUR_ACCESS_KEY_ID" 
+  secret_access_key: "YOUR_SECRET_ACCESS_KEY"
+  bucket: "camera-backups"
+  endpoint: "https://YOUR_ENDPOINT_URL"
+
+cameras:
+  - name: "front-door"
+    rtsp_url: "rtsp://username:password@camera-ip:554/stream"
+    enabled: true
+  - name: "back-yard" 
+    rtsp_url: "rtsp://username:password@camera-ip:554/stream"
+    enabled: true
+
+recording:
+  segment_duration: 3600  # 1 hour in seconds
+
+upload:
+  check_interval: 300  # Check for completed segments every 5 minutes
+  delete_after_upload: true

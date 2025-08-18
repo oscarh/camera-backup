@@ -1,0 +1,20 @@
+[Unit]
+Description=Camera Segment Uploader to Cloudflare R2
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/camera-backup-uploader --config /etc/camera-backup/config.yaml
+Restart=always
+RestartSec=60
+User=camera-backup
+Group=camera-backup
+WorkingDirectory=/tmp
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=camera-uploader
+
+[Install]
+WantedBy=multi-user.target
